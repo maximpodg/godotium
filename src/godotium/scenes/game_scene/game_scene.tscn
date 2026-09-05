@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[node name="GameScene" type="GameScene"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TimerHeading" type="Label" parent="."]
+layout_mode = 2
+text = "GAME_TIMER"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+
+[node name="TimerLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00:00:00"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 64
+
+[node name="PauseHint" type="Label" parent="."]
+layout_mode = 2
+text = "GAME_PAUSE_HINT"
+horizontal_alignment = 1

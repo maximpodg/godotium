@@ -1,0 +1,57 @@
+# Reusable action for building a C++ GDExtension on a host or target OS.
+import("//build/config/godot.gni")
+
+template("game_cpp_library") {
+  native_toolchain = "//build/toolchain:host"
+  if (invoker.os != host_os) {
+    native_toolchain = "//build/toolchain:${invoker.os}"
+  }
+  native_targets = []
+  native_archives = []
+  foreach(label, invoker.static_libraries) {
+    native_label = "$label($native_toolchain)"
+    native_targets += [ native_label ]
+    archive_dir = get_label_info(native_label, "target_out_dir")
+    archive_name = get_label_info(native_label, "name")
+    native_archives += [ "$archive_dir/lib${archive_name}.a" ]
+  }
+  action(target_name) {
+    script = "//build/scripts/build_game.py"
+    pool = "//:console"
+    deps = [
+      "//build/tools:scons_tool",
+      "//godotium:game_sources",
+      "//third_party:godot_cpp_sources",
+    ]
+    deps += native_targets
+    if (invoker.os == "win") {
+      deps += [ "//build/tools:windows_toolchain" ]
+    } else if (invoker.os == "linux" && host_os == "mac") {
+      deps += [ "//build/tools:linux_toolchain" ]
+    }
+    inputs = [
+      "//build/scripts/build_utils.py",
+      "//build/scripts/game.SConstruct",
+      "//build/config/cpp_profile.json",
+      "//third_party/GODOT_CPP_VERSION",
+    ]
+    inputs += native_archives + invoker.library_headers
+    sources = [ "$root_gen_dir/game_sources.json" ]
+    depfile = "$target_gen_dir/${target_name}.d"
+    outputs = [ invoker.output ]
+    args = [
+      rebase_path(outputs[0]),
+      "$godot_jobs",
+      invoker.os,
+      invoker.cpu,
+      export_mode,
+    ]
+    args += [
+      rebase_path(sources[0]),
+      rebase_path(depfile),
+    ]
+
+    # Paths relative to src can be remapped into the Linux build container.
+    args += rebase_path(native_archives, "//")
+  }
+}

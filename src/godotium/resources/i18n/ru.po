@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Language: ru\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "MAIN_SUBTITLE"
+msgstr "ЗДЕСЬ НАЧИНАЕТСЯ ТВОЯ ИГРА"
+
+msgid "SETTING_TEST_SOUND"
+msgstr "Проверить звук"
+
+msgid "MENU_EXIT"
+msgstr "Выход"
+
+msgid "MENU_SETTINGS"
+msgstr "Настройки"
+
+msgid "MENU_BACK"
+msgstr "Назад"
+
+msgid "LANGUAGE_NAME"
+msgstr "Русский"
+
+msgid "TAB_GENERAL"
+msgstr "Основные"
+
+msgid "TAB_AUDIO"
+msgstr "Звук"
+
+msgid "TAB_GRAPHICS"
+msgstr "Графика"
+
+msgid "SETTING_LANGUAGE"
+msgstr "Язык"
+
+msgid "SETTING_MUSIC"
+msgstr "Громкость музыки"
+
+msgid "SETTING_SOUND"
+msgstr "Громкость звуков"
+
+msgid "SETTING_FULLSCREEN"
+msgstr "Полноэкранный режим"
+
+msgid "SETTING_VSYNC"
+msgstr "Вертикальная синхронизация (VSync)"
+
+msgid "SETTINGS_SAVED"
+msgstr "Изменения сохраняются автоматически."
+
+msgid "MENU_NEW_GAME"
+msgstr "Новая игра"
+
+msgid "MENU_LOAD_GAME"
+msgstr "Загрузить"
+
+msgid "MENU_SAVE_GAME"
+msgstr "Сохранить"
+
+msgid "MENU_RESUME"
+msgstr "Продолжить"
+
+msgid "GAME_TIMER"
+msgstr "Время игры"
+
+msgid "GAME_PAUSE_HINT"
+msgstr "Esc — меню паузы"
+
+msgid "GAME_SAVED"
+msgstr "Игра сохранена."
+
+msgid "GAME_SAVE_FAILED"
+msgstr "Не удалось сохранить игру."
+
+msgid "GAME_LOAD_FAILED"
+msgstr "Не удалось загрузить сохранение."
+
+msgid "SAVE_NAME_PLACEHOLDER"
+msgstr "Название сохранения"
+
+msgid "SAVE_NAME_REQUIRED"
+msgstr "Введите название (от 1 до 80 символов)."
+
+msgid "SAVE_EMPTY"
+msgstr "Сохранённых игр пока нет."
+
+msgid "SAVE_OVERWRITE_PROMPT"
+msgstr "Сохранение с таким названием уже существует. Перезаписать?"
+
+msgid "SAVE_OVERWRITE"
+msgstr "Перезаписать"
+
+msgid "SAVE_CANCEL"
+msgstr "Отмена"
+
+msgid "SAVE_DAMAGED"
+msgstr "Повреждённое сохранение"
+
+msgid "SAVE_LEGACY"
+msgstr "Предыдущее сохранение"
+
+msgid "SAVE_DELETE"
+msgstr "Удалить"
+
+msgid "SAVE_DELETE_PROMPT"
+msgstr "Удалить это сохранение? Это действие нельзя отменить."
+
+msgid "SAVE_DELETE_FAILED"
+msgstr "Не удалось удалить сохранение."
+
+msgid "SAVE_EXISTING_HINT"
+msgstr "Выберите сохранение для перезаписи или введите новое имя."
+
+msgid "MUSIC_TRACKS"
+msgstr "Музыкальные треки"
+
+msgid "MUSIC_PLAY_TRACK"
+msgstr "Включить трек"

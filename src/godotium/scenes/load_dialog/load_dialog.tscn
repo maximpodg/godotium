@@ -1,0 +1,151 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Theme" path="res://godotium/resources/themes/menu.tres" id="theme"]
+
+[sub_resource type="StyleBoxEmpty" id="Style_text_action"]
+
+[node name="LoadDialog" type="LoadDialog"]
+layout_mode = 2
+custom_minimum_size = Vector2(720, 0)
+theme = ExtResource("theme")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MENU_LOAD_GAME"
+
+[node name="SaveList" type="ItemList" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 280)
+icon_mode = 0
+fixed_column_width = 600
+max_text_lines = 4
+allow_reselect = true
+
+[node name="StatusLabel" type="Label" parent="Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="Actions" type="VBoxContainer" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PrimaryActions" type="HBoxContainer" parent="Content/Actions"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="ConfirmButton" type="Button" parent="Content/Actions/PrimaryActions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(180, 44)
+text = "MENU_LOAD_GAME"
+
+[node name="CancelButton" type="Button" parent="Content/Actions/PrimaryActions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(180, 44)
+text = "SAVE_CANCEL"
+
+[node name="DeleteButton" type="Button" parent="Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+custom_minimum_size = Vector2(0, 28)
+mouse_default_cursor_shape = 2
+flat = true
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.73, 0.57, 0.63, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.69, 0.74, 1)
+theme_override_colors/font_pressed_color = Color(0.84, 0.57, 0.63, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.69, 0.74, 1)
+theme_override_colors/font_disabled_color = Color(0.40, 0.35, 0.42, 1)
+theme_override_styles/normal = SubResource("Style_text_action")
+theme_override_styles/hover = SubResource("Style_text_action")
+theme_override_styles/pressed = SubResource("Style_text_action")
+theme_override_styles/disabled = SubResource("Style_text_action")
+text = "SAVE_DELETE"
+
+[node name="DeleteLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="DeleteOverlay" type="Control" parent="DeleteLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="DeleteLayer/DeleteOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Center" type="CenterContainer" parent="DeleteLayer/DeleteOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Confirmation" type="PanelContainer" parent="DeleteLayer/DeleteOverlay/Center"]
+layout_mode = 2
+custom_minimum_size = Vector2(600, 0)
+theme = ExtResource("theme")
+
+[node name="Content" type="VBoxContainer" parent="DeleteLayer/DeleteOverlay/Center/Confirmation"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Question" type="Label" parent="DeleteLayer/DeleteOverlay/Center/Confirmation/Content"]
+layout_mode = 2
+text = "SAVE_DELETE_PROMPT"
+autowrap_mode = 3
+
+[node name="DeleteLabel" type="Label" parent="DeleteLayer/DeleteOverlay/Center/Confirmation/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 20
+
+[node name="DeleteActions" type="HBoxContainer" parent="DeleteLayer/DeleteOverlay/Center/Confirmation/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="CancelDeleteButton" type="Button" parent="DeleteLayer/DeleteOverlay/Center/Confirmation/Content/DeleteActions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(180, 44)
+focus_neighbor_left = NodePath("../ConfirmDeleteButton")
+focus_neighbor_right = NodePath("../ConfirmDeleteButton")
+focus_next = NodePath("../ConfirmDeleteButton")
+focus_previous = NodePath("../ConfirmDeleteButton")
+text = "SAVE_CANCEL"
+
+[node name="ConfirmDeleteButton" type="Button" parent="DeleteLayer/DeleteOverlay/Center/Confirmation/Content/DeleteActions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(180, 44)
+focus_neighbor_left = NodePath("../CancelDeleteButton")
+focus_neighbor_right = NodePath("../CancelDeleteButton")
+focus_next = NodePath("../CancelDeleteButton")
+focus_previous = NodePath("../CancelDeleteButton")
+text = "SAVE_DELETE"

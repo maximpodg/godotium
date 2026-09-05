@@ -1,0 +1,69 @@
+# Shared build options and output locations. No targets are declared here.
+declare_args() {
+  # Select debug/release for the game independently of the host editor.
+  is_debug = false
+  godot_dev_build = false
+  godot_jobs = 4
+}
+
+assert((host_os == "mac" && host_cpu == "arm64") ||
+           ((host_os == "win" || host_os == "linux") && host_cpu == "x64"),
+       "Supported hosts: mac/arm64, win/x64, linux/x64.")
+assert(host_os == target_os || host_os == "mac",
+       "Cross compilation is supported from macOS; other hosts build natively.")
+
+assert(
+    (target_os == "mac" && target_cpu == "arm64") ||
+        ((target_os == "win" || target_os == "linux") && target_cpu == "x64"),
+    "Supported targets: mac/arm64, win/x64, linux/x64.")
+assert(godot_jobs > 0, "godot_jobs must be positive.")
+
+godot_source_dir = "//third_party/godot-src"
+godot_executable = "$root_out_dir/bin/godot"
+scons_python = "//.tools/venv/bin/python"
+if (host_os == "win") {
+  godot_executable += ".exe"
+  scons_python = "//.tools/venv/Scripts/python.exe"
+}
+godot_template = "$root_out_dir/templates/macos.zip"
+if (target_os == "win") {
+  godot_template = "$root_out_dir/templates/windows.exe"
+} else if (target_os == "linux") {
+  godot_template = "$root_out_dir/templates/linux"
+}
+dist_dir = "$root_out_dir/dist"
+game_target = "template_release"
+export_mode = "release"
+if (is_debug) {
+  game_target = "template_debug"
+  export_mode = "debug"
+}
+godot_dev_build_value = "no"
+if (godot_dev_build) {
+  godot_dev_build_value = "yes"
+}
+
+# The host editor needs the native extension to import the C++ scene even
+# when exporting to a different target OS.
+game_library_names = {
+  mac = "libgodotium_mac.dylib"
+  win = "libgodotium_win.dll"
+  linux = "libgodotium_linux.so"
+}
+game_library_name = game_library_names.mac
+if (target_os == "win") {
+  game_library_name = game_library_names.win
+} else if (target_os == "linux") {
+  game_library_name = game_library_names.linux
+}
+host_library_name = game_library_names.mac
+if (host_os == "win") {
+  host_library_name = game_library_names.win
+} else if (host_os == "linux") {
+  host_library_name = game_library_names.linux
+}
+game_library = "$root_out_dir/game_lib/$game_library_name"
+host_game_library = game_library
+if (target_os != host_os) {
+  host_game_library = "$root_out_dir/host_lib/$host_library_name"
+}

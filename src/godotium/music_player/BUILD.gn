@@ -1,0 +1,11 @@
+import("//build/game_module.gni")
+
+game_module("music_player") {
+  deps = [ "//godotium/settings" ]
+  sources = [
+    "music_player.cc",
+    "music_player.h",
+    "register_types.cc",
+    "register_types.h",
+  ]
+}

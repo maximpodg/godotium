@@ -1,0 +1,11 @@
+# Describe a C++ module. GN collects these explicit lists for SCons.
+template("game_module") {
+  group(target_name) {
+    if (defined(invoker.deps)) {
+      deps = invoker.deps
+    }
+    metadata = {
+      game_sources = rebase_path(invoker.sources, "//")
+    }
+  }
+}

@@ -1,0 +1,9 @@
+[configuration]
+entry_symbol = "godotium_library_init"
+compatibility_minimum = "4.5"
+reloadable = true
+
+[libraries]
+macos.arm64 = "res://bin/libgodotium_mac.dylib"
+windows.x86_64 = "res://bin/libgodotium_win.dll"
+linux.x86_64 = "res://bin/libgodotium_linux.so"

@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "MAIN_SUBTITLE"
+msgstr "YOUR NEXT GAME STARTS HERE"
+
+msgid "SETTING_TEST_SOUND"
+msgstr "Test sound"
+
+msgid "MENU_EXIT"
+msgstr "Quit"
+
+msgid "MENU_SETTINGS"
+msgstr "Settings"
+
+msgid "MENU_BACK"
+msgstr "Back"
+
+msgid "LANGUAGE_NAME"
+msgstr "English"
+
+msgid "TAB_GENERAL"
+msgstr "General"
+
+msgid "TAB_AUDIO"
+msgstr "Audio"
+
+msgid "TAB_GRAPHICS"
+msgstr "Graphics"
+
+msgid "SETTING_LANGUAGE"
+msgstr "Language"
+
+msgid "SETTING_MUSIC"
+msgstr "Music volume"
+
+msgid "SETTING_SOUND"
+msgstr "Sound volume"
+
+msgid "SETTING_FULLSCREEN"
+msgstr "Fullscreen"
+
+msgid "SETTING_VSYNC"
+msgstr "Vertical sync (VSync)"
+
+msgid "SETTINGS_SAVED"
+msgstr "Changes are saved automatically."
+
+msgid "MENU_NEW_GAME"
+msgstr "New game"
+
+msgid "MENU_LOAD_GAME"
+msgstr "Load game"
+
+msgid "MENU_SAVE_GAME"
+msgstr "Save game"
+
+msgid "MENU_RESUME"
+msgstr "Resume"
+
+msgid "GAME_TIMER"
+msgstr "Time played"
+
+msgid "GAME_PAUSE_HINT"
+msgstr "Esc — pause menu"
+
+msgid "GAME_SAVED"
+msgstr "Game saved."
+
+msgid "GAME_SAVE_FAILED"
+msgstr "Could not save the game."
+
+msgid "GAME_LOAD_FAILED"
+msgstr "Could not load the save."
+
+msgid "SAVE_NAME_PLACEHOLDER"
+msgstr "Save name"
+
+msgid "SAVE_NAME_REQUIRED"
+msgstr "Enter a name (1–80 characters)."
+
+msgid "SAVE_EMPTY"
+msgstr "No saved games yet."
+
+msgid "SAVE_OVERWRITE_PROMPT"
+msgstr "A save with this name already exists. Replace it?"
+
+msgid "SAVE_OVERWRITE"
+msgstr "Overwrite"
+
+msgid "SAVE_CANCEL"
+msgstr "Cancel"
+
+msgid "SAVE_DAMAGED"
+msgstr "Invalid save"
+
+msgid "SAVE_LEGACY"
+msgstr "Previous save"
+
+msgid "SAVE_DELETE"
+msgstr "Delete"
+
+msgid "SAVE_DELETE_PROMPT"
+msgstr "Delete this saved game? This cannot be undone."
+
+msgid "SAVE_DELETE_FAILED"
+msgstr "Could not delete the saved game."
+
+msgid "SAVE_EXISTING_HINT"
+msgstr "Select a saved game to overwrite, or enter a new name."
+
+msgid "MUSIC_TRACKS"
+msgstr "Music tracks"
+
+msgid "MUSIC_PLAY_TRACK"
+msgstr "Play track"

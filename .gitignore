@@ -1,0 +1,22 @@
+# Godot-generated data.
+.godot/
+
+# GN/Ninja outputs.
+out/
+!src/out/
+src/out/*
+!src/out/.gdignore
+
+# Locally provisioned tools and third-party source trees.
+.tools/
+src/third_party/godot-src/
+
+# Platform/editor noise.
+.DS_Store
+*.swp
+__pycache__/
+src/third_party/.godot-fetch.lock
+godotium-*.tar.gz
+src/third_party/godot-cpp/
+src/third_party/.godot-cpp-fetch.lock
+src/bin/

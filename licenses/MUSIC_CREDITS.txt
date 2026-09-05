@@ -1,0 +1,23 @@
+Godotium music credits
+======================
+
+Out in Space Menu / Out in Space
+Author: Agecaf
+Source: https://opengameart.org/content/out-in-space-0
+License: CC0 1.0 Universal
+
+Original soundtrack for the arcade puzzle game Spaceabon.
+The author explicitly dedicates both audio files to the public domain.
+License declaration checked on the author upload page on 2026-09-05.
+Audio content is unmodified; filenames normalized for this project.
+
+https://creativecommons.org/publicdomain/zero/1.0/
+Full license text: CC0-1.0.txt in this directory.
+
+File: out_in_space_menu.ogg
+Download: https://opengameart.org/sites/default/files/Out%20in%20Space%20Menu.ogg
+SHA-256: f9a2af7ab2e28f6150e87f9f0f957c4ea83b6aec948e847bcbc55e97c5594106
+
+File: out_in_space.ogg
+Download: https://opengameart.org/sites/default/files/Out%20in%20Space_0.ogg
+SHA-256: 85c5feb769eb8d400db309b8152011399666893549ed7de401a6249f25acf655

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Godotium
+Comment=Godotium game
+Exec=godotium
+Icon=godotium
+Terminal=false
+Categories=Game;

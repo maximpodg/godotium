@@ -1,0 +1,11 @@
+static_library("game_state") {
+  sources = [
+    "game_state.cc",
+    "game_state.h",
+  ]
+
+  # Linked into the GDExtension, using the same target C++ toolchain.
+  if (cpp_os != "win") {
+    cflags = [ "-fPIC" ]
+  }
+}

@@ -1,0 +1,13 @@
+# Public entry points. Component BUILD.gn files own their sources and actions.
+group("godotium") {
+  deps = [ "//build/export:package" ]
+}
+
+group("all") {
+  deps = [ ":godotium" ]
+}
+
+# Ninja reserves the console pool for the root build file.
+pool("console") {
+  depth = 1
+}

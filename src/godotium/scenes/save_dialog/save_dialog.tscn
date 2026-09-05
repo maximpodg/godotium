@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Theme" path="res://godotium/resources/themes/menu.tres" id="theme"]
+
+[node name="SaveDialog" type="SaveDialog"]
+layout_mode = 2
+custom_minimum_size = Vector2(720, 0)
+theme = ExtResource("theme")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MENU_SAVE_GAME"
+
+[node name="ExistingSavesLabel" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SAVE_EXISTING_HINT"
+autowrap_mode = 3
+
+[node name="SaveList" type="ItemList" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 200)
+icon_mode = 0
+fixed_column_width = 600
+max_text_lines = 4
+allow_reselect = true
+
+[node name="SaveName" type="LineEdit" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+placeholder_text = "SAVE_NAME_PLACEHOLDER"
+max_length = 80
+
+[node name="StatusLabel" type="Label" parent="Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="Actions" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="ConfirmButton" type="Button" parent="Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(180, 44)
+text = "MENU_SAVE_GAME"
+
+[node name="CancelButton" type="Button" parent="Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(180, 44)
+text = "SAVE_CANCEL"
+
+[node name="OverwriteButton" type="Button" parent="Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(180, 44)
+text = "SAVE_OVERWRITE"

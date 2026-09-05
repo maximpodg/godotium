@@ -1,0 +1,44 @@
+if (target_os == "") {
+  target_os = host_os
+}
+if (target_cpu == "") {
+  if (target_os != host_os && (target_os == "win" || target_os == "linux")) {
+    target_cpu = "x64"
+  } else {
+    target_cpu = host_cpu
+  }
+}
+set_default_toolchain("//build/toolchain:host")
+
+declare_args() {
+  cpp_os = host_os
+  cpp_cpu = host_cpu
+}
+
+# C++ targets default to the host; secondary toolchains build export archives.
+# Godot and GDExtension actions continue to select matching SCons toolchains.
+foreach(type,
+        [
+          "executable",
+          "static_library",
+          "source_set",
+        ]) {
+  set_defaults(type) {
+    configs = [ "//build/config:native_cpp" ]
+    inputs = []
+    if (type == "static_library") {
+      inputs += [ "//build/scripts/archive.py" ]
+    }
+    if (cpp_os == "win") {
+      deps = [ "//build/tools:windows_toolchain(//build/toolchain:host)" ]
+    } else if (cpp_os == "linux" && host_os == "mac") {
+      deps = [ "//build/tools:linux_toolchain(//build/toolchain:host)" ]
+      inputs += [
+        "//build/scripts/run_linux_tool.py",
+        "//build/scripts/build_utils.py",
+      ]
+    } else {
+      deps = []
+    }
+  }
+}

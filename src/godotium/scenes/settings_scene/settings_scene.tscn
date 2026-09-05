@@ -1,0 +1,143 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="AudioStream" path="res://godotium/resources/audio/ui_click.wav" id="3_click"]
+[ext_resource type="Theme" path="res://godotium/resources/themes/menu.tres" id="theme"]
+
+[node name="SettingsScene" type="SettingsScene"]
+theme = ExtResource("theme")
+custom_minimum_size = Vector2(640, 420)
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Heading" type="Label" parent="Content"]
+layout_mode = 2
+text = "MENU_SETTINGS"
+theme_override_font_sizes/font_size = 32
+
+[node name="SettingsTabs" type="TabContainer" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+custom_minimum_size = Vector2(460, 210)
+
+[node name="General" type="VBoxContainer" parent="Content/SettingsTabs"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LanguageLabel" type="Label" parent="Content/SettingsTabs/General"]
+layout_mode = 2
+text = "SETTING_LANGUAGE"
+
+[node name="LanguageOption" type="OptionButton" parent="Content/SettingsTabs/General"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 40)
+
+[node name="SaveHint" type="Label" parent="Content/SettingsTabs/General"]
+layout_mode = 2
+text = "SETTINGS_SAVED"
+theme_override_colors/font_color = Color(0.6, 0.73, 0.73, 1)
+
+[node name="Audio" type="VBoxContainer" parent="Content/SettingsTabs"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="MusicLabel" type="Label" parent="Content/SettingsTabs/Audio"]
+layout_mode = 2
+text = "SETTING_MUSIC"
+
+[node name="MusicRow" type="HBoxContainer" parent="Content/SettingsTabs/Audio"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MusicVolume" type="HSlider" parent="Content/SettingsTabs/Audio/MusicRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 24)
+max_value = 100.0
+step = 1.0
+value = 30.0
+
+[node name="MusicValue" type="Label" parent="Content/SettingsTabs/Audio/MusicRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(48, 0)
+text = "30%"
+horizontal_alignment = 2
+
+[node name="SoundLabel" type="Label" parent="Content/SettingsTabs/Audio"]
+layout_mode = 2
+text = "SETTING_SOUND"
+
+[node name="SoundRow" type="HBoxContainer" parent="Content/SettingsTabs/Audio"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SoundVolume" type="HSlider" parent="Content/SettingsTabs/Audio/SoundRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 24)
+max_value = 100.0
+step = 1.0
+value = 70.0
+
+[node name="SoundValue" type="Label" parent="Content/SettingsTabs/Audio/SoundRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(48, 0)
+text = "70%"
+horizontal_alignment = 2
+
+[node name="TestSound" type="Button" parent="Content/SettingsTabs/Audio"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SETTING_TEST_SOUND"
+
+[node name="MusicTracksLabel" type="Label" parent="Content/SettingsTabs/Audio"]
+layout_mode = 2
+text = "MUSIC_TRACKS"
+
+[node name="TrackScroll" type="ScrollContainer" parent="Content/SettingsTabs/Audio"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 180)
+size_flags_vertical = 0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+follow_focus = true
+
+[node name="TrackRows" type="VBoxContainer" parent="Content/SettingsTabs/Audio/TrackScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Graphics" type="VBoxContainer" parent="Content/SettingsTabs"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Fullscreen" type="CheckButton" parent="Content/SettingsTabs/Graphics"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SETTING_FULLSCREEN"
+
+[node name="Vsync" type="CheckButton" parent="Content/SettingsTabs/Graphics"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SETTING_VSYNC"
+
+[node name="CloseSettings" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+text = "MENU_BACK"
+
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+bus = &"SFX"
+stream = ExtResource("3_click")

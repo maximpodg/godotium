@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://godotium/resources/icons/godotium.svg" id="icon"]
+[ext_resource type="Theme" path="res://godotium/resources/themes/menu.tres" id="theme"]
+
+[node name="MainMenu" type="MainMenu"]
+theme = ExtResource("theme")
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Logo" type="TextureRect" parent="Content"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.91, 1, 1)
+theme_override_font_sizes/font_size = 52
+text = "GODOTIUM"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Content"]
+layout_mode = 2
+text = "MAIN_SUBTITLE"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.76, 0.62, 0.87, 1)
+
+
+[node name="ResumeGameButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(240, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_RESUME"
+
+[node name="SaveGameButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(240, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_SAVE_GAME"
+
+[node name="NewGameButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_NEW_GAME"
+
+[node name="LoadGameButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_LOAD_GAME"
+
+[node name="SettingsButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_SETTINGS"
+
+[node name="QuitButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_EXIT"
+
+[node name="GameStatus" type="Label" parent="Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.60, 0.56, 0.68, 1)

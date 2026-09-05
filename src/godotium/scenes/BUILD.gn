@@ -1,0 +1,26 @@
+import("//build/game_module.gni")
+
+game_module("scenes") {
+  sources = [
+    "game_scene/game_scene.cc",
+    "game_scene/game_scene.h",
+    "load_dialog/load_dialog.cc",
+    "load_dialog/load_dialog.h",
+    "main_menu/main_menu.cc",
+    "main_menu/main_menu.h",
+    "main_scene/main_scene.cc",
+    "main_scene/main_scene.h",
+    "register_types.cc",
+    "register_types.h",
+    "save_dialog/save_dialog.cc",
+    "save_dialog/save_dialog.h",
+    "settings_scene/settings_scene.cc",
+    "settings_scene/settings_scene.h",
+  ]
+  deps = [
+    "//godotium/music_player",
+    "//godotium/localization",
+    "//godotium/save_repository",
+    "//godotium/settings",
+  ]
+}

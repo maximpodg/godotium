@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Texture2D" path="res://godotium/resources/backgrounds/main_menu.svg" id="background"]
+[ext_resource type="PackedScene" path="res://godotium/scenes/main_menu/main_menu.tscn" id="main_menu"]
+[ext_resource type="PackedScene" path="res://godotium/scenes/game_scene/game_scene.tscn" id="game_scene"]
+[ext_resource type="PackedScene" path="res://godotium/scenes/settings_scene/settings_scene.tscn" id="settings_scene"]
+[ext_resource type="PackedScene" path="res://godotium/scenes/save_dialog/save_dialog.tscn" id="save_dialog"]
+[ext_resource type="PackedScene" path="res://godotium/scenes/load_dialog/load_dialog.tscn" id="load_dialog"]
+
+[node name="MainScene" type="MainScene"]
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="Interface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Center" type="CenterContainer" parent="Interface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+
+[node name="MainMenu" parent="Interface/Center" instance=ExtResource("main_menu")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GameScene" parent="Interface/Center" instance=ExtResource("game_scene")]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+
+[node name="SettingsScene" parent="Interface/Center" instance=ExtResource("settings_scene")]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+
+[node name="SaveDialog" parent="Interface/Center" instance=ExtResource("save_dialog")]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+
+[node name="LoadDialog" parent="Interface/Center" instance=ExtResource("load_dialog")]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+
+[node name="MusicPlayer" type="MusicPlayer" parent="."]
+unique_name_in_owner = true
+bus = &"Music"

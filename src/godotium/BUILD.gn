@@ -1,0 +1,38 @@
+import("//build/game_library.gni")
+import("//build/game_module.gni")
+
+game_module("extension") {
+  sources = [ "register_types.cc" ]
+  deps = [
+    "//godotium/music_player",
+    "//godotium/scenes",
+    "//godotium/settings",
+  ]
+}
+generated_file("game_sources") {
+  outputs = [ "$root_gen_dir/game_sources.json" ]
+  data_keys = [ "game_sources" ]
+  output_conversion = "json"
+  deps = [ ":extension" ]
+}
+
+game_cpp_library("game_cpp") {
+  os = target_os
+  cpu = target_cpu
+  output = game_library
+  static_libraries = [ "//godotium/game_state:game_state" ]
+  library_headers = [ "//godotium/game_state/game_state.h" ]
+}
+if (target_os == host_os) {
+  group("game_cpp_host") {
+    deps = [ ":game_cpp" ]
+  }
+} else {
+  game_cpp_library("game_cpp_host") {
+    os = host_os
+    cpu = host_cpu
+    output = host_game_library
+    static_libraries = [ "//godotium/game_state:game_state" ]
+    library_headers = [ "//godotium/game_state/game_state.h" ]
+  }
+}

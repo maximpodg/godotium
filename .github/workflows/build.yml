@@ -1,0 +1,94 @@
+name: Native builds
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    name: ${{ matrix.target }} release
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            target: mac
+          - runner: windows-2022
+            target: win
+          - runner: ubuntu-22.04
+            target: linux
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.11'
+      - name: Linux compiler dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y build-essential pkg-config
+      - name: Prepare tools (Unix)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          source ./build_tools.sh
+          echo "$PWD/.tools/bin" >> "$GITHUB_PATH"
+      - name: Prepare tools (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          .\build_tools.ps1
+          Join-Path $PWD '.tools/bin' | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+      - name: Cache Godot compilation
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: src/third_party/godot-src
+          key: godot-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('src/third_party/GODOT_VERSION', 'src/third_party/LLVM_MINGW_VERSION') }}-${{ hashFiles('src/build/scripts/build_godot.py', 'src/build/scripts/patch_godot.py') }}
+          restore-keys: |
+            godot-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('src/third_party/GODOT_VERSION', 'src/third_party/LLVM_MINGW_VERSION') }}-
+      - name: Build with native release defaults (Unix)
+        if: runner.os != 'Windows'
+        working-directory: src
+        shell: bash
+        run: |
+          gn gen out/Default --args='godot_jobs=2'
+          ninja -C out/Default godotium
+      - name: Build with native release defaults (Windows)
+        if: runner.os == 'Windows'
+        working-directory: src
+        shell: pwsh
+        run: |
+          gn gen out/Default --args='godot_jobs=2'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          ninja -C out/Default godotium
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test source project and build inputs
+        working-directory: src
+        shell: python
+        run: |
+          import subprocess, sys
+          subprocess.run([sys.executable, 'build/tests/test_build_inputs.py'], check=True)
+          subprocess.run([sys.executable, 'build/tests/test_source_project.py',
+                          'out/Default'], check=True)
+      - name: Test standalone distribution, settings and audio
+        working-directory: src
+        shell: python
+        run: |
+          import subprocess, sys
+          subprocess.run([sys.executable, 'build/tests/test_distribution.py',
+                          'out/Default', '${{ matrix.target }}'], check=True)
+      - name: Archive dist (preserve executable permissions)
+        shell: python
+        run: |
+          import shutil
+          shutil.make_archive('godotium-${{ matrix.target }}', 'gztar', 'src/out/Default/dist')
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: godotium-${{ matrix.target }}
+          path: godotium-${{ matrix.target }}.tar.gz
+          if-no-files-found: error
+          retention-days: 7

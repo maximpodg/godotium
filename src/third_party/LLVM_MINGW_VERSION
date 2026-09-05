@@ -1,0 +1,5 @@
+LLVM_MINGW_VERSION=20260826
+LLVM_MINGW_URL=https://github.com/mstorsjo/llvm-mingw/releases/download/20260826/llvm-mingw-20260826-ucrt-macos-universal.tar.xz
+LLVM_MINGW_SHA256=48bedd161f14ae25a3646cb750b57ee3188e97e34bd3c52240c1810aa74d6a7f
+LLVM_MINGW_WINDOWS_URL=https://github.com/mstorsjo/llvm-mingw/releases/download/20260826/llvm-mingw-20260826-ucrt-x86_64.zip
+LLVM_MINGW_WINDOWS_SHA256=ae601f4e0f72bbdf441ad2df8bb16f037e2e9251559ea6b37b4057aef39c06c3

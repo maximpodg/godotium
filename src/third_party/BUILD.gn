@@ -1,0 +1,89 @@
+# Fetch pinned upstream sources and build the Godot editor/runtime.
+import("//build/config/godot.gni")
+
+action("godot_sources") {
+  script = "//build/scripts/fetch_godot.py"
+
+  inputs = [
+    "//build/scripts/patch_godot.py",
+    "//third_party/GODOT_VERSION",
+    "//build/scripts/build_utils.py",
+  ]
+  outputs = [ "$target_gen_dir/godot-sources.stamp" ]
+  args = [
+    rebase_path("//third_party/GODOT_VERSION"),
+    rebase_path(godot_source_dir),
+    rebase_path(outputs[0]),
+  ]
+}
+
+action("godot") {
+  script = "//build/scripts/build_godot.py"
+  pool = "//:console"
+
+  deps = [
+    ":godot_sources",
+    "//build/tools:scons_tool",
+  ]
+
+  inputs = [
+    "//third_party/GODOT_VERSION",
+    "//build/scripts/build_utils.py",
+  ]
+
+  if (host_os == "win") {
+    deps += [ "//build/tools:windows_toolchain" ]
+  }
+  outputs = [ godot_executable ]
+
+  args = [
+    rebase_path(godot_source_dir),
+    rebase_path(godot_executable),
+    "$godot_jobs",
+    godot_dev_build_value,
+    rebase_path(scons_python),
+    "editor",
+    host_os,
+    host_cpu,
+  ]
+}
+
+action("godot_template") {
+  script = "//build/scripts/build_godot.py"
+  pool = "//:console"
+  deps = [
+    ":godot_sources",
+    "//build/tools:scons_tool",
+  ]
+  inputs = [
+    "//third_party/GODOT_VERSION",
+    "//build/scripts/build_utils.py",
+  ]
+  if (target_os == "win") {
+    deps += [ "//build/tools:windows_toolchain" ]
+    inputs += [ "//godotium/resources/icons/godotium.ico" ]
+  } else if (target_os == "linux" && host_os == "mac") {
+    deps += [ "//build/tools:linux_toolchain" ]
+  }
+  outputs = [ godot_template ]
+  args = [
+    rebase_path(godot_source_dir),
+    rebase_path(godot_template),
+    "$godot_jobs",
+    "no",
+    rebase_path(scons_python),
+    game_target,
+    target_os,
+    target_cpu,
+  ]
+}
+
+action("godot_cpp_sources") {
+  script = "//build/scripts/fetch_godot_cpp.py"
+  inputs = [
+    "//third_party/GODOT_CPP_VERSION",
+    "//build/scripts/build_utils.py",
+  ]
+  outputs = [ "$target_gen_dir/godot-cpp.stamp" ]
+  args = [ rebase_path(outputs[0]) ]
+}

@@ -1,0 +1,111 @@
+template("cpp_toolchain") {
+  toolchain(target_name) {
+    tool_os = invoker.os
+    tool_cpu = invoker.cpu
+    toolchain_args = {
+      cpp_os = tool_os
+      cpp_cpu = tool_cpu
+    }
+    runner = ""
+    python = read_file("//../.tools/python_path.txt", "trim string")
+    archive_python = python
+    cc = "cc"
+    cxx = "c++"
+    ar = "ar"
+    if (tool_os == "win") {
+      mingw_pins = read_file("//third_party/LLVM_MINGW_VERSION", "list lines")
+      mingw_version = string_replace(mingw_pins[0], "LLVM_MINGW_VERSION=", "")
+      mingw_host = "macos-universal"
+      exe = ""
+      if (host_os == "win") {
+        mingw_host = "x86_64"
+        exe = ".exe"
+      }
+      mingw_bin = rebase_path(
+              "//../.tools/llvm-mingw-${mingw_version}-ucrt-${mingw_host}/bin",
+              root_build_dir)
+      cc = "$mingw_bin/x86_64-w64-mingw32-clang$exe"
+      cxx = "$mingw_bin/x86_64-w64-mingw32-clang++$exe"
+      ar = "$mingw_bin/llvm-ar$exe"
+    }
+    if (tool_os == "linux" && host_os == "mac") {
+      linux_tool =
+          rebase_path("//build/scripts/run_linux_tool.py", root_build_dir)
+      runner = "\"$python\" \"$linux_tool\" "
+      archive_python = "python3"
+      cc = "x86_64-linux-gnu-gcc"
+      cxx = "x86_64-linux-gnu-g++"
+      ar = "x86_64-linux-gnu-ar"
+    }
+    foreach(language,
+            [
+              "cc",
+              "cxx",
+            ]) {
+      tool(language) {
+        compiler = cc
+        language_flags = "{{cflags_c}}"
+        if (language == "cxx") {
+          compiler = cxx
+          language_flags = "{{cflags_cc}}"
+        }
+        command = "$runner\"$compiler\" -MMD -MF {{output}}.d {{defines}} {{include_dirs}} {{cflags}} $language_flags -c {{source}} -o {{output}}"
+        description = "$language {{source}}"
+        outputs = [
+          "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o",
+        ]
+        depfile = "{{output}}.d"
+        depsformat = "gcc"
+      }
+    }
+    tool("alink") {
+      archive_tool = rebase_path("//build/scripts/archive.py", root_build_dir)
+      command = "${runner}\"$archive_python\" \"$archive_tool\" \"$ar\" {{output}} {{output}}.rsp"
+      description = "AR {{output}}"
+      outputs =
+          [ "{{target_out_dir}}/{{target_output_name}}{{output_extension}}" ]
+      default_output_extension = ".a"
+      output_prefix = "lib"
+      rspfile = "{{output}}.rsp"
+      rspfile_content = "{{inputs}}"
+    }
+    tool("link") {
+      command = "$runner\"$cxx\" {{ldflags}} -o {{output}} @{{output}}.rsp {{solibs}} {{libs}}"
+      description = "LINK {{output}}"
+      outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}" ]
+      default_output_dir = "{{root_out_dir}}"
+      default_output_extension = ""
+      if (tool_os == "win") {
+        default_output_extension = ".exe"
+      }
+      lib_switch = "-l"
+      lib_dir_switch = "-L"
+      rspfile = "{{output}}.rsp"
+      rspfile_content = "{{inputs}}"
+    }
+    file_tool = rebase_path("//build/scripts/file_tool.py", root_build_dir)
+    tool("stamp") {
+      command = "\"$python\" \"$file_tool\" stamp {{output}}"
+      description = "STAMP {{output}}"
+    }
+    tool("copy") {
+      command = "\"$python\" \"$file_tool\" copy {{source}} {{output}}"
+      description = "COPY {{source}} {{output}}"
+    }
+  }
+}
+
+cpp_toolchain("host") {
+  os = host_os
+  cpu = host_cpu
+}
+if (host_os == "mac") {
+  cpp_toolchain("win") {
+    os = "win"
+    cpu = "x64"
+  }
+  cpp_toolchain("linux") {
+    os = "linux"
+    cpu = "x64"
+  }
+}

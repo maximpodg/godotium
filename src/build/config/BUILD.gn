@@ -1,0 +1,28 @@
+import("//build/config/godot.gni")
+
+config("native_cpp") {
+  if (cpp_os == "linux" && host_os == "mac") {
+    # Toolchain deps establish build order; this input also invalidates objects
+    # when the container's compiler or runtime changes.
+    inputs = [ "$root_build_dir/templates/linux-image.id" ]
+  }
+  include_dirs = [ "//" ]
+  cflags_cc = [ "-std=c++17" ]
+  cflags = [ "-g" ]
+  if (is_debug) {
+    cflags += [ "-O0" ]
+  } else {
+    cflags += [ "-O2" ]
+    defines = [ "NDEBUG" ]
+  }
+  if (cpp_os == "win") {
+    ldflags = [ "-static" ]
+  } else {
+    cflags += [ "-pthread" ]
+    ldflags = [ "-pthread" ]
+    if (cpp_os == "mac") {
+      cflags += [ "-mmacosx-version-min=11.0" ]
+      ldflags += [ "-mmacosx-version-min=11.0" ]
+    }
+  }
+}

@@ -1,0 +1,4 @@
+# godot-cpp 4.5 API is backward-compatible with our Godot 4.7 runtime.
+GODOT_CPP_REVISION=e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77
+GODOT_CPP_URL=https://codeload.github.com/godotengine/godot-cpp/tar.gz/e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77
+GODOT_CPP_SHA256=d4c03daf46c8bef4544614182b0762c3e32789151c7f8f44e8eb2053d5cddeba

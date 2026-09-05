@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Godotium"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Godotium"
+config/version="0.1.0"
+run/main_scene="res://godotium/scenes/main_scene/main_scene.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/bg_color=Color(0.063, 0.051, 0.149, 1)
+boot_splash/show_image=false
+config/icon="res://godotium/resources/icons/godotium.svg"
+
+[audio]
+
+buses/default_bus_layout="res://godotium/resources/audio/default_bus_layout.tres"
+
+[autoload]
+
+Settings="*res://godotium/settings/game_settings.tscn"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+window/size/min_width=640
+window/size/min_height=360
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://godotium/resources/i18n/en.po", "res://godotium/resources/i18n/ru.po")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.063, 0.051, 0.149, 1)

@@ -1,0 +1,8 @@
+import("//build/game_module.gni")
+
+game_module("save_repository") {
+  sources = [
+    "save_repository.cc",
+    "save_repository.h",
+  ]
+}

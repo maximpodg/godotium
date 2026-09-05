@@ -1,0 +1,2 @@
+buildconfig = "//build/config/BUILDCONFIG.gn"
+script_executable = read_file("//../.tools/python_path.txt", "trim string")

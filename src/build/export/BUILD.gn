@@ -1,0 +1,107 @@
+# Export scenes/assets and native libraries into a standalone distribution.
+import("//build/config/godot.gni")
+
+action("package") {
+  script = "//build/scripts/export_game.py"
+
+  deps = [
+    "//godotium:game_cpp",
+    "//godotium:game_cpp_host",
+    "//third_party:godot",
+    "//third_party:godot_template",
+  ]
+
+  inputs = [
+    "//build/scripts/export_game.py",
+    "//../LICENSE",
+    "//../licenses/CC0-1.0.txt",
+    "//../licenses/MUSIC_CREDITS.txt",
+    "//build/config/${target_os}_export.cfg",
+  ]
+
+  if (target_os == "linux") {
+    inputs += [
+      "//build/linux/godotium.desktop",
+    ]
+  }
+
+  # Only these files enter the staged Godot project.
+  sources = [
+    "//godotium.gdextension",
+    "//godotium.gdextension.uid",
+    "//godotium/resources/audio/default_bus_layout.tres",
+    "//godotium/resources/audio/music/out_in_space.ogg",
+    "//godotium/resources/audio/music/out_in_space.ogg.import",
+    "//godotium/resources/audio/music/out_in_space_menu.ogg",
+    "//godotium/resources/audio/music/out_in_space_menu.ogg.import",
+    "//godotium/resources/audio/ui_click.wav",
+    "//godotium/resources/audio/ui_click.wav.import",
+    "//godotium/resources/backgrounds/main_menu.svg",
+    "//godotium/resources/backgrounds/main_menu.svg.import",
+    "//godotium/resources/i18n/en.po",
+    "//godotium/resources/i18n/ru.po",
+    "//godotium/resources/icons/godotium.svg",
+    "//godotium/resources/icons/godotium.svg.import",
+    "//godotium/resources/themes/menu.tres",
+    "//godotium/scenes/game_scene/game_scene.tscn",
+    "//godotium/scenes/load_dialog/load_dialog.tscn",
+    "//godotium/scenes/main_menu/main_menu.tscn",
+    "//godotium/scenes/main_scene/main_scene.tscn",
+    "//godotium/scenes/save_dialog/save_dialog.tscn",
+    "//godotium/scenes/settings_scene/settings_scene.tscn",
+    "//godotium/settings/game_settings.tscn",
+    "//project.godot",
+  ]
+
+  if (target_os == "mac") {
+    godotium_app = "$dist_dir/Godotium.app"
+    outputs = [
+      "$godotium_app/Contents/MacOS/Godotium",
+      "$godotium_app/Contents/Resources/Godotium.pck",
+      "$godotium_app/Contents/Frameworks/$game_library_name",
+      "$godotium_app/Contents/Resources/icon.icns",
+      "$godotium_app/Contents/Info.plist",
+      "$godotium_app/Contents/_CodeSignature/CodeResources",
+    ]
+  } else if (target_os == "win") {
+    outputs = [
+      "$dist_dir/godotium.exe",
+      "$dist_dir/godotium.pck",
+      "$dist_dir/$game_library_name",
+    ]
+  } else if (target_os == "linux") {
+    outputs = [
+      "$dist_dir/godotium",
+      "$dist_dir/godotium.desktop",
+      "$dist_dir/godotium.svg",
+      "$dist_dir/godotium.pck",
+      "$dist_dir/$game_library_name",
+    ]
+  }
+
+  licenses_dir = "$dist_dir/licenses"
+  if (target_os == "mac") {
+    licenses_dir = "$dist_dir/Godotium.app/Contents/Resources/licenses"
+  }
+  outputs += [
+    "$licenses_dir/GODOTIUM_LICENSE.txt",
+    "$licenses_dir/GODOT_LICENSE.txt",
+    "$licenses_dir/GODOT_COPYRIGHT.txt",
+    "$licenses_dir/GODOT_CPP_LICENSE.txt",
+    "$licenses_dir/CC0-1.0.txt",
+    "$licenses_dir/MUSIC_CREDITS.txt",
+  ]
+
+  args = [
+    rebase_path(godot_executable),
+    rebase_path(godot_template),
+    rebase_path("//"),
+    rebase_path(dist_dir),
+    rebase_path("//build/config/${target_os}_export.cfg"),
+    target_os,
+    export_mode,
+    rebase_path(game_library),
+    rebase_path(host_game_library),
+  ]
+  args += rebase_path(sources)
+}

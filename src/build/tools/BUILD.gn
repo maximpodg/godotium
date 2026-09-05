@@ -1,0 +1,35 @@
+import("//build/config/godot.gni")
+
+action("scons_tool") {
+  script = "//build/scripts/setup_scons.py"
+
+  inputs = [ "//build/scripts/build_utils.py" ]
+  outputs = [ "$target_gen_dir/scons.stamp" ]
+  args = [
+    rebase_path("//.tools/venv"),
+    rebase_path(outputs[0]),
+  ]
+}
+
+if (target_os == "win" || host_os == "win") {
+  action("windows_toolchain") {
+    script = "//build/scripts/setup_mingw.py"
+    inputs = [
+      "//third_party/LLVM_MINGW_VERSION",
+      "//build/scripts/build_utils.py",
+    ]
+    outputs = [ "$target_gen_dir/mingw.stamp" ]
+    args = [ rebase_path(outputs[0]) ]
+  }
+}
+if (target_os == "linux" && host_os == "mac") {
+  action("linux_toolchain") {
+    script = "//build/scripts/setup_linux.py"
+    inputs = [
+      "//build/docker/Dockerfile",
+      "//build/scripts/build_utils.py",
+    ]
+    outputs = [ "$root_out_dir/templates/linux-image.id" ]
+    args = [ rebase_path(outputs[0]) ]
+  }
+}

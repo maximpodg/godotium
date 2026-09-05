@@ -1,0 +1,11 @@
+import("//build/game_module.gni")
+
+game_module("settings") {
+  sources = [
+    "game_settings.cc",
+    "game_settings.h",
+    "register_types.cc",
+    "register_types.h",
+  ]
+  deps = [ "//godotium/localization" ]
+}
